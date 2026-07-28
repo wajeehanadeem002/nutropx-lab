@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Inter Local";
+  src: url("/fonts/inter-latin.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "Sora Local";
+  src: url("/fonts/sora-latin.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400 900;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #242424;
+  --ink: #242424;
+  --cyan: #10d0fc;
+  --coral: #ff6b2c;
+  --paper: #f6f6f3;
+  --muted: #6e6e6c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-cyan: var(--cyan);
+  --color-coral: var(--coral);
+  --color-paper: var(--paper);
+  --color-muted: var(--muted);
+  --font-sans: "Inter Local", Arial, Helvetica, sans-serif;
+  --font-display: "Sora Local", "Inter Local", Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter Local", Arial, Helvetica, sans-serif;
+}
+
+body.abstract-card-playing .abstract-training-chrome {
+  display: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-display {
+  font-family: "Sora Local", "Inter Local", Arial, Helvetica, sans-serif;
+}
+
+.hero-copy-offset {
+  padding-top: 0;
+}
+
+.section {
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+}
+
+.section-title {
+  font-family: "Sora Local", "Inter Local", Arial, Helvetica, sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.75rem);
+  font-weight: 900;
+  line-height: 0.96;
+  color: var(--ink);
+}
+
+.section-copy {
+  margin-top: 1.25rem;
+  color: var(--muted);
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.7;
+}
+
+.eyebrow {
+  margin-bottom: 0.9rem;
+  color: var(--coral);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #000;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-small {
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 #000;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  min-height: 3.5rem;
+  padding-inline: 1.55rem;
+  font-size: 0.83rem;
+}
+
+.btn-primary {
+  background: var(--coral);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--ink);
+}
+
+.btn-small {
+  display: inline-flex;
+  min-height: 2.55rem;
+  padding-inline: 1rem;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.74rem;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-small:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+.shadow-hard-xs {
+  box-shadow: 3px 3px 0 #000;
+}
+
+.shadow-hard-sm {
+  box-shadow: 4px 4px 0 #000;
+}
+
+.shadow-hard-lg {
+  box-shadow: 10px 10px 0 #000;
+}
+
+.feature-card,
+.product-card {
+  border: 2px solid #000;
+  border-radius: 1.5rem;
+  background: #fff;
+  padding: 1.5rem;
+  box-shadow: 6px 6px 0 #000;
+}
+
+.stack-line {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 2px solid #000;
+  border-radius: 999px;
+  background: #fff;
+  padding: 0.9rem 1rem;
+  color: var(--ink);
+  font-weight: 850;
+}
+
+.stack-line span {
+  display: grid;
+  height: 1.55rem;
+  width: 1.55rem;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--cyan);
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .shadow-hard-lg {
+    box-shadow: 6px 6px 0 #000;
+  }
+
+  .feature-card,
+  .product-card {
+    box-shadow: 4px 4px 0 #000;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-copy-offset {
+    padding-top: 183px;
+  }
+}

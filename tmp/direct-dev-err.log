@@ -1,0 +1,160 @@
+[browser] Image with src "/assets/professor-5brain.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[browser] Image with src "/assets/professor-5brain.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] React instrumentation encountered an error: 'Error: The children should not have changed if we pass in the same set.'
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Image with src "/assets/professor-5brain.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Image with src "/assets/professor-5brain.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Image with src "/assets/professor-5brain.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+Supabase auth request failed {
+  httpsError: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+  },
+  fetchError: TypeError: fetch failed
+      at async supabaseAuthRequest (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:68:24)
+      at async signUpWithPassword (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:229:19)
+      at async signUpAction (webpack-internal:///(rsc)/./src/app/auth/actions.ts:49:25) {
+    [cause]: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+        at ignore-listed frames {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+    }
+  }
+}
+Supabase auth request failed {
+  httpsError: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+  },
+  fetchError: TypeError: fetch failed
+      at async supabaseAuthRequest (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:68:24)
+      at async signUpWithPassword (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:229:19)
+      at async signUpAction (webpack-internal:///(rsc)/./src/app/auth/actions.ts:49:25) {
+    [cause]: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+        at ignore-listed frames {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+    }
+  }
+}
+[browser] Image with src "/assets/professor-5brain.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+Supabase auth request failed {
+  httpsError: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+  },
+  fetchError: TypeError: fetch failed
+      at async supabaseAuthRequest (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:68:24)
+      at async signInWithPassword (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:210:19)
+      at async signInAction (webpack-internal:///(rsc)/./src/app/auth/actions.ts:28:9) {
+    [cause]: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+        at ignore-listed frames {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+    }
+  }
+}
+Supabase auth request failed {
+  httpsError: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+  },
+  fetchError: TypeError: fetch failed
+      at async supabaseAuthRequest (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:68:24)
+      at async signInWithPassword (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:210:19)
+      at async signInAction (webpack-internal:///(rsc)/./src/app/auth/actions.ts:28:9) {
+    [cause]: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+        at ignore-listed frames {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+    }
+  }
+}
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+Supabase auth request failed {
+  httpsError: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+  },
+  fetchError: TypeError: fetch failed
+      at async supabaseAuthRequest (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:68:24)
+      at async signInWithPassword (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:210:19)
+      at async signInAction (webpack-internal:///(rsc)/./src/app/auth/actions.ts:28:9) {
+    [cause]: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+        at ignore-listed frames {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+    }
+  }
+}
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+Supabase auth request failed {
+  httpsError: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+  },
+  fetchError: TypeError: fetch failed
+      at async supabaseAuthRequest (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:68:24)
+      at async signInWithPassword (webpack-internal:///(rsc)/./src/lib/supabase/auth.ts:210:19)
+      at async signInAction (webpack-internal:///(rsc)/./src/app/auth/actions.ts:28:9) {
+    [cause]: Error: getaddrinfo ENOTFOUND zlydmfubzhbdlwpuybyf.supabase.co
+        at ignore-listed frames {
+      errno: -3008,
+      code: 'ENOTFOUND',
+      syscall: 'getaddrinfo',
+      hostname: 'zlydmfubzhbdlwpuybyf.supabase.co'
+    }
+  }
+}
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[browser] Uncaught Error: Element type is invalid. Received a promise that resolves to: undefined. Lazy element type must resolve to a class or function.
+    at Hero (src\app\page.tsx:325:13)
+    at Home (src\app\page.tsx:101:7)
+  323 |               <span className="mt-1 pr-1 text-2xl font-black leading-none text-coral">{"\...
+  324 |             </div>
+> 325 |             <QuickReactionDemo />
+      |             ^
+  326 |           </div>
+  327 |         </div>
+  328 |       </div>
+⚠ Server is approaching the used memory threshold, restarting...
