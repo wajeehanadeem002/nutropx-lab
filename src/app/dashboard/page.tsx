@@ -14,6 +14,14 @@ const navItems: Array<[IconName, string, string, boolean]> = [
   ["profile", "Profile", "/profile", false],
 ];
 
+const mobileNavItems: Array<[IconName, string, string, boolean]> = [
+  ["home", "Home", "/dashboard", true],
+  ["lab", "Lab", "/lab", false],
+  ["brain", "Brain Test", "/brain-test", false],
+  ["trophy", "My Brain", "/my-brain", false],
+  ["profile", "Profile", "/profile", false],
+];
+
 const domains = [
   ["#9f42d6", "Logic"],
   ["#2d95ee", "Memory"],
@@ -39,7 +47,7 @@ export default async function DashboardPage() {
 
   return (
     <main
-      className="min-h-screen text-black"
+      className="min-h-screen pt-[75px] pb-20 text-black lg:pb-0"
       style={{
         background:
           "linear-gradient(105deg, #ecfbfa 0%, #f8fbfa 50%, #fff7f2 100%)",
@@ -47,7 +55,7 @@ export default async function DashboardPage() {
     >
       <DashboardHeader displayName={displayName} email={email} />
 
-      <div className="mx-auto max-w-[1120px] px-6 pb-10 pt-5 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-[1120px] px-5 pb-28 pt-5 sm:px-8 lg:px-10 lg:pb-10">
         <ProgressPill />
 
         <section className="mx-auto mt-8 w-full max-w-[672px]">
@@ -96,6 +104,7 @@ export default async function DashboardPage() {
       </div>
 
       <ProfessorButton />
+      <MobileBottomNav />
       <DashboardFooter />
     </main>
   );
@@ -103,25 +112,28 @@ export default async function DashboardPage() {
 
 function DashboardHeader({ displayName, email }: { displayName: string; email: string }) {
   return (
-    <header className="relative border-b-[3px] border-orange-500 bg-white">
-      <div className="mx-auto flex h-[72px] w-full max-w-[959px] items-center justify-between gap-4 px-4">
-        <Link href="/dashboard" className="absolute left-10 top-1/2 shrink-0 -translate-y-1/2">
+    <header
+      className="dashboard-shell-header fixed inset-x-0 top-0 border-b-[3px] border-orange-500 bg-white/90 shadow-[0_8px_24px_rgba(0,0,0,0.10)] backdrop-blur-xl"
+      style={{ zIndex: 9999 }}
+    >
+      <div className="relative mx-auto flex min-h-[72px] w-full max-w-[959px] items-center justify-between gap-3 px-5 py-3 lg:px-4 lg:py-0">
+        <Link href="/dashboard" className="flex shrink-0 items-center lg:absolute lg:left-10 lg:top-1/2 lg:-translate-y-1/2">
           <Image
             src="/assets/nutropx-lab-logo.png"
             alt="Nutropx LAB"
             width={255}
             height={70}
             priority
-            className="h-10 w-auto lg:h-[42px]"
+            className="h-[38px] w-auto lg:h-[42px]"
           />
         </Link>
 
-        <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-[34px] text-xs font-semibold text-[#777] lg:flex">
+        <nav className="hidden items-center justify-center whitespace-nowrap text-xs font-semibold text-[#777] lg:absolute lg:left-1/2 lg:top-1/2 lg:flex lg:w-auto lg:-translate-x-1/2 lg:-translate-y-1/2 lg:gap-[34px]">
           {navItems.map(([icon, label, href, active]) => (
             <Link
               key={label}
               href={href}
-              className={`relative inline-flex h-[72px] items-center gap-2 ${
+              className={`relative inline-flex h-9 items-center gap-1.5 lg:h-[72px] lg:gap-2 ${
                 active ? "text-black" : "text-[#777]"
               }`}
             >
@@ -134,7 +146,7 @@ function DashboardHeader({ displayName, email }: { displayName: string; email: s
           ))}
         </nav>
 
-        <div className="absolute right-[25px] top-1/2 flex shrink-0 -translate-y-1/2 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:absolute lg:right-[25px] lg:top-1/2 lg:-translate-y-1/2">
           <Link
             href="/profile?tab=billing"
             className="hidden h-[40px] w-[99px] items-center justify-center gap-1.5 rounded-[0.85rem] border-[3px] border-black bg-orange-500 text-xs font-semibold uppercase text-black shadow-[0_5px_0_#000000] sm:inline-flex"
@@ -146,6 +158,27 @@ function DashboardHeader({ displayName, email }: { displayName: string; email: s
         </div>
       </div>
     </header>
+  );
+}
+
+function MobileBottomNav() {
+  return (
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-white shadow-[0_-10px_30px_rgba(0,0,0,0.12)] lg:hidden">
+      <div className="mx-auto grid max-w-[480px] grid-cols-5 px-2 pb-2 pt-2">
+        {mobileNavItems.map(([icon, label, href, active]) => (
+          <Link
+            key={label}
+            href={href}
+            className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1 py-1 text-[9px] font-semibold ${
+              active ? "text-cyan" : "text-[#555]"
+            }`}
+          >
+            <AppIcon name={icon} className="h-[20px] w-[20px]" />
+            <span className="truncate">{label}</span>
+          </Link>
+        ))}
+      </div>
+    </nav>
   );
 }
 
@@ -186,37 +219,39 @@ function ProgressPill() {
 
 function TrainingCard() {
   return (
-    <section className="mx-auto mt-9 overflow-hidden rounded-[1.2rem] border border-black/10 bg-white shadow-[0_2px_0_rgba(0,0,0,0.05)] lg:h-[220px] lg:w-[670px]">
-      <div className="flex items-center justify-between border-b border-black/10 px-6 py-4">
-        <h2 className="text-base font-black">Today&apos;s training</h2>
-        <Link href="/lab" className="text-xs font-black text-[#C95F1E]">
+    <section className="mx-auto mt-9 h-[160px] overflow-hidden rounded-[1.2rem] border border-black/10 bg-white shadow-[0_2px_0_rgba(0,0,0,0.05)] lg:h-[220px] lg:w-[670px]">
+      <div className="flex items-center justify-between border-b border-black/10 px-4 py-3 lg:px-6 lg:py-4">
+        <h2 className="text-[14px] font-black lg:text-base">Today&apos;s training</h2>
+        <Link href="/lab" className="text-[10px] font-black text-[#C95F1E] lg:text-xs">
           All exercises {"\u2192"}
         </Link>
       </div>
-      <div className="flex items-center justify-between gap-4 border-b border-black/10 px-6 py-5">
-        <div className="flex items-center gap-4">
-          <div className="grid h-12 w-12 place-items-center rounded-[0.8rem] bg-[#2d95ee] text-white">
-            <AppIcon name="target" className="h-6 w-6" />
+      <div className="flex h-[70px] items-center justify-between gap-3 border-b border-black/10 px-4 py-2 lg:h-auto lg:gap-4 lg:px-6 lg:py-5">
+        <div className="flex min-w-0 items-center gap-3 lg:gap-4">
+          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-[0.75rem] bg-[#2d95ee] text-white lg:h-12 lg:w-12 lg:rounded-[0.8rem]">
+            <AppIcon name="target" className="h-5 w-5 lg:h-6 lg:w-6" />
           </div>
-          <div>
-            <h3 className="text-base font-black">Abstract Card Match</h3>
-            <p className="mt-1 text-xs font-medium text-muted">
+          <div className="min-w-0">
+            <h3 className="max-w-[155px] text-[13px] font-black leading-tight lg:max-w-none lg:text-base">
+              Abstract Card Match
+            </h3>
+            <p className="mt-0.5 text-[10px] font-medium leading-tight text-muted lg:mt-1 lg:text-xs">
               Memory - 2 min - Free exercise
             </p>
           </div>
         </div>
         <Link
           href="/training/abstract-card-match"
-          className="grid h-12 w-12 shrink-0 place-items-center rounded-[0.8rem] bg-orange-500 text-black"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-[0.75rem] bg-orange-500 text-black lg:h-12 lg:w-12 lg:rounded-[0.8rem]"
         >
-          <AppIcon name="play" className="h-6 w-6" />
+          <AppIcon name="play" className="h-5 w-5 lg:h-6 lg:w-6" />
         </Link>
       </div>
-      <div className="grid grid-cols-5 px-6 py-3 text-center">
+      <div className="grid grid-cols-5 px-4 py-2 text-center lg:px-6 lg:py-3">
         {domains.map(([color, label]) => (
-          <div key={label} className="grid justify-items-center gap-1.5">
-            <span className="h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
-            <span className="text-[10px] font-black uppercase tracking-[0.08em] text-muted">
+          <div key={label} className="grid justify-items-center gap-1 lg:gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full lg:h-3 lg:w-3" style={{ backgroundColor: color }} />
+            <span className="text-[9px] font-black uppercase tracking-[0.03em] text-muted lg:text-[10px] lg:tracking-[0.08em]">
               {label}
             </span>
           </div>
@@ -287,7 +322,7 @@ function ProfessorButton() {
   return (
     <Link
       href="/profile"
-      className="fixed bottom-8 right-8 z-20 grid h-[86px] w-[86px] place-items-center rounded-full bg-orange-500 shadow-[0_16px_35px_rgba(255,107,44,0.35)]"
+      className="fixed bottom-20 right-4 z-20 grid h-[62px] w-[62px] place-items-center rounded-full bg-orange-500 shadow-[0_16px_35px_rgba(255,107,44,0.35)] sm:bottom-8 sm:right-8 sm:h-[86px] sm:w-[86px]"
       aria-label="Professor 5-Brain"
     >
       <Image
@@ -295,7 +330,7 @@ function ProfessorButton() {
         alt=""
         width={66}
         height={66}
-        className="h-[66px] w-[66px] object-contain"
+        className="h-[48px] w-[48px] object-contain sm:h-[66px] sm:w-[66px]"
       />
     </Link>
   );

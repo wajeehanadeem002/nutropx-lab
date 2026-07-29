@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { QuickReactionDemo } from "@/components/quick-reaction-demo";
+import { getCurrentUser } from "@/lib/supabase/auth";
 
 const XYNAPTIC_DROPS_URL = "https://nutropx.com/product/xynaptic-drops";
 const FIVE_BRAIN_URL = "https://nutropx.com/product/5-brain";
@@ -94,10 +95,12 @@ const planFeatures = [
   "Weekly training summaries",
 ];
 
-export default function Home() {
+export default async function Home() {
+  const user = await getCurrentUser();
+
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader isSignedIn={Boolean(user)} />
       <Hero />
       <ProductPair />
       <Platform />
@@ -114,38 +117,62 @@ export default function Home() {
   );
 }
 
-function SiteHeader() {
+function SiteHeader({ isSignedIn }: { isSignedIn: boolean }) {
   return (
-    <header className="sticky top-0 z-30 bg-transparent px-3 pt-2 pb-0 sm:px-6 sm:pt-3 lg:px-16 xl:px-24 2xl:px-32 2xl:pt-4">
-      <div className="mx-auto flex min-h-[66px] max-w-[1648px] items-center justify-between rounded-full border border-black/10 bg-white/80 px-5 shadow-[0_18px_42px_rgba(0,0,0,0.10)] backdrop-blur-md sm:min-h-[74px] sm:px-8 2xl:min-h-[82px]">
-        <Link href="/" className="flex items-center">
+    <header className="sticky top-0 z-30 bg-transparent px-2 pt-[10px] pb-0 sm:px-6 lg:px-16 xl:px-24 2xl:px-32">
+      <div
+        className={
+          isSignedIn
+            ? "mx-auto flex w-full max-w-full items-center justify-between gap-3 overflow-visible rounded-full border border-black/10 bg-white/85 px-3 py-2 shadow-[0_18px_42px_rgba(0,0,0,0.10)] backdrop-blur-md sm:min-h-[74px] sm:max-w-[1648px] sm:px-8 sm:py-0 2xl:min-h-[82px]"
+            : "mx-auto flex w-full max-w-full flex-col items-stretch gap-2 overflow-visible rounded-[1.25rem] border border-black/10 bg-white/85 px-3 py-3 shadow-[0_18px_42px_rgba(0,0,0,0.10)] backdrop-blur-md sm:min-h-[74px] sm:max-w-[1648px] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:rounded-full sm:px-8 sm:py-0 2xl:min-h-[82px]"
+        }
+      >
+        <Link
+          href="/"
+          className={
+            isSignedIn
+              ? "flex min-w-0 shrink items-center justify-start"
+              : "flex min-w-0 items-center justify-center sm:justify-start"
+          }
+        >
           <Image
             src="/assets/nutropx-lab-logo.png"
             alt="Nutropx LAB"
             width={225}
             height={62}
             priority
-            className="h-11 w-auto sm:h-14 2xl:h-[64px]"
+            className="h-7 w-auto max-w-[190px] sm:h-14 sm:max-w-none 2xl:h-[64px]"
           />
         </Link>
-        <nav className="flex w-auto min-w-[132px] items-center justify-between gap-3 text-[11px] font-semibold leading-none text-black md:min-w-[360px] md:gap-4 md:text-sm lg:min-w-[400px] lg:text-[15px] 2xl:min-w-[440px] 2xl:text-base">
-          <Link href="#supplements" className="hidden hover:text-coral md:inline">
-            Supplements
-          </Link>
-          <Link href="#pricing" className="hidden hover:text-coral md:inline">
-            Pricing
-          </Link>
-          <Link href="/auth/login" className="hidden hover:text-coral md:inline">
-            Sign in
-          </Link>
-          <Link
-            href="/brain-test"
-            className="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-[1rem] border-[3px] border-black bg-coral px-4 text-[11px] font-semibold uppercase leading-none text-ink shadow-[0_5px_0_#000] transition hover:translate-y-0.5 hover:shadow-[0_3px_0_#000] sm:min-h-12 sm:w-[160px] sm:px-5 sm:text-sm 2xl:min-h-14 2xl:w-[176px] 2xl:text-base"
-          >
-            Brain Test
-            <span className="text-xl leading-none">{"\u203a"}</span>
-          </Link>
-        </nav>
+        {isSignedIn ? (
+          <nav className="flex shrink-0 items-center justify-end">
+            <Link
+              href="/dashboard"
+              className="inline-flex min-h-9 items-center justify-center rounded-[0.9rem] border-2 border-black bg-coral px-4 text-[10px] font-semibold uppercase leading-none text-ink shadow-[0_4px_0_#000] transition hover:translate-y-0.5 hover:shadow-[0_3px_0_#000] sm:min-h-12 sm:w-[160px] sm:border-[3px] sm:px-5 sm:text-sm sm:shadow-[0_5px_0_#000] 2xl:min-h-14 2xl:w-[176px] 2xl:text-base"
+            >
+              Dashboard
+            </Link>
+          </nav>
+        ) : (
+          <nav className="grid w-full min-w-0 grid-cols-2 items-stretch gap-2 text-center text-[10px] font-semibold leading-none text-black sm:flex sm:w-auto sm:min-w-[132px] sm:items-center sm:justify-between sm:gap-3 sm:text-[11px] md:min-w-[360px] md:gap-4 md:text-sm lg:min-w-[400px] lg:text-[15px] 2xl:min-w-[440px] 2xl:text-base">
+            <Link href="#supplements" className="hidden min-h-8 items-center justify-center rounded-full bg-black/[0.03] px-2 py-2 hover:text-coral sm:flex sm:min-h-0 sm:bg-transparent sm:px-0 sm:py-0">
+              Supplements
+            </Link>
+            <Link href="#pricing" className="hidden min-h-8 items-center justify-center rounded-full bg-black/[0.03] px-2 py-2 hover:text-coral sm:flex sm:min-h-0 sm:bg-transparent sm:px-0 sm:py-0">
+              Pricing
+            </Link>
+            <Link href="/auth/login" className="flex min-h-8 items-center justify-center rounded-full bg-black/[0.03] px-2 py-2 hover:text-coral sm:min-h-0 sm:bg-transparent sm:px-0 sm:py-0">
+              Sign in
+            </Link>
+            <Link
+              href="/brain-test"
+              className="inline-flex min-h-8 min-w-0 items-center justify-center gap-1 rounded-[0.9rem] border-2 border-black bg-coral px-2 text-[9px] font-semibold uppercase leading-none text-ink shadow-[0_4px_0_#000] transition hover:translate-y-0.5 hover:shadow-[0_3px_0_#000] sm:min-h-12 sm:w-[160px] sm:gap-1.5 sm:border-[3px] sm:px-5 sm:text-sm sm:shadow-[0_5px_0_#000] 2xl:min-h-14 2xl:w-[176px] 2xl:text-base"
+            >
+              Brain Test
+              <span className="text-sm leading-none sm:text-xl">{"\u203a"}</span>
+            </Link>
+          </nav>
+        )}
       </div>
     </header>
   );
@@ -161,13 +188,13 @@ function Hero() {
           "linear-gradient(105deg, #ecfbfa 0%, #f8fbfa 48%, #fff7f2 100%)",
       }}
     >
-      <div className="relative mx-auto grid max-w-[1776px] items-start gap-10 pl-10 pr-6 pb-20 pt-0 sm:pl-12 sm:pr-8 sm:pb-24 sm:pt-1 lg:grid-cols-[minmax(0,840px)_minmax(0,820px)] lg:gap-[116px] lg:pl-24 lg:pr-16 lg:pt-3 xl:pl-32 xl:pr-24 2xl:pl-40 2xl:pr-32">
-        <div className="hero-copy-offset max-w-[840px]">
-          <p className="mb-7 inline-flex whitespace-nowrap items-center gap-2 rounded-full bg-black px-4 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-white shadow-[10px_0_0_#000000]">
-            <span className="h-2.5 w-2.5 rounded-full bg-coral" />
-            <span>Cognitive Performance Platform</span>
+      <div className="relative mx-auto grid w-full max-w-[1776px] items-start gap-9 px-5 pb-16 pt-5 sm:px-8 sm:pb-24 sm:pt-1 lg:grid-cols-[minmax(0,840px)_minmax(0,820px)] lg:gap-[116px] lg:pl-24 lg:pr-16 lg:pt-3 xl:pl-32 xl:pr-24 2xl:pl-40 2xl:pr-32">
+        <div className="hero-copy-offset min-w-0 max-w-[840px]">
+          <p className="mb-5 inline-flex w-full max-w-full items-center justify-center gap-2 rounded-full bg-black px-3 py-2 text-[9px] font-black uppercase tracking-[0.06em] text-white shadow-[7px_0_0_#000000] sm:mb-7 sm:w-auto sm:justify-start sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.14em] sm:shadow-[10px_0_0_#000000]">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-coral sm:h-2.5 sm:w-2.5" />
+            <span className="min-w-0 truncate">Cognitive Performance Platform</span>
           </p>
-          <h1 className="mb-6 font-display text-2xl font-black leading-[1.03] text-black sm:text-[1.7rem] md:text-[2.4rem] lg:text-[3.2rem] xl:text-[3.55rem] 2xl:text-[3.85rem]">
+          <h1 className="mb-5 max-w-full break-words font-display text-[1.95rem] font-black leading-[1.02] text-black sm:mb-6 sm:text-[2.55rem] sm:leading-[0.98] md:text-[2.9rem] lg:text-[3.2rem] xl:text-[3.55rem] 2xl:text-[3.85rem]">
             <span className="block lg:whitespace-nowrap">Train your brain</span>
             <span className="block lg:whitespace-nowrap">
               like it&apos;s a{" "}
@@ -177,20 +204,20 @@ function Hero() {
               </span>
             </span>
           </h1>
-          <p className="mb-6 max-w-[720px] text-sm font-normal leading-[1.38] text-black sm:text-lg lg:text-[1.12rem] lg:leading-[1.38]">
-            <span className="block">
+          <p className="mb-6 max-w-full text-[0.98rem] font-normal leading-[1.45] text-black sm:max-w-[720px] sm:text-lg lg:text-[1.12rem] lg:leading-[1.38]">
+            <span className="block sm:inline lg:block">
               Take a 90-second Brain Test. Get your score. Level up with
             </span>
-            <span className="block">
+            <span className="block sm:inline lg:block">
               daily quests in the Nutropx Lab, fueled by science.
             </span>
           </p>
-          <div className="flex flex-col items-start gap-4 sm:flex-row">
+          <div className="flex w-full max-w-full flex-col items-stretch gap-4 sm:max-w-none sm:flex-row sm:items-start">
             <Link
               href="/brain-test"
-              className="inline-flex min-h-[58px] w-full max-w-[360px] items-center justify-center gap-2.5 rounded-[1.25rem] bg-black px-4 text-sm font-black whitespace-nowrap text-white shadow-[10px_12px_0_#000000] transition-transform hover:scale-[1.02] active:scale-[0.98] sm:w-auto sm:min-w-[355px] sm:gap-3 sm:px-5 sm:text-base"
+              className="inline-flex min-h-[52px] w-full min-w-0 items-center justify-center gap-2 rounded-[1.15rem] bg-black px-3 text-center text-[10px] font-black leading-tight text-white shadow-[6px_8px_0_#000000] transition-transform hover:scale-[1.02] active:scale-[0.98] sm:min-h-[58px] sm:w-auto sm:min-w-[355px] sm:gap-3 sm:px-5 sm:text-base sm:shadow-[10px_12px_0_#000000] sm:whitespace-nowrap"
             >
-              <span className="grid h-5 w-5 place-items-center text-coral sm:h-6 sm:w-6">
+              <span className="grid h-5 w-5 shrink-0 place-items-center text-coral sm:h-6 sm:w-6">
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
@@ -211,11 +238,11 @@ function Hero() {
                 </svg>
               </span>
               Take the Brain Test. Free.
-              <span className="text-xl font-normal leading-none sm:text-2xl">{"\u2192"}</span>
+              <span className="text-lg font-normal leading-none sm:text-2xl">{"\u2192"}</span>
             </Link>
             <a
               href="#demo"
-              className="inline-flex min-h-[58px] items-center gap-3 rounded-[1.15rem] bg-white px-6 text-base font-black whitespace-nowrap text-black transition-colors hover:bg-cyan/10"
+              className="inline-flex min-h-[54px] w-full min-w-0 items-center justify-center gap-3 rounded-[1.15rem] bg-white px-5 text-sm font-black text-black transition-colors hover:bg-cyan/10 sm:min-h-[58px] sm:w-auto sm:px-6 sm:text-base sm:whitespace-nowrap"
             >
               <span className="h-0 w-0 border-y-[8px] border-l-[13px] border-y-transparent border-l-black" />
               Try demo
@@ -231,12 +258,12 @@ function Hero() {
             ].map(([value, label]) => (
               <div
                 key={label}
-                className="flex min-h-[78px] flex-col items-center justify-center rounded-[1.25rem] bg-white px-3 py-4 text-center md:min-h-[88px] lg:px-4"
+                className="flex min-h-[72px] min-w-0 flex-col items-center justify-center rounded-[1.25rem] bg-white px-2 py-3 text-center md:min-h-[88px] lg:px-4"
               >
                 <p className="whitespace-nowrap text-lg font-medium leading-none text-black md:text-xl lg:text-[1.35rem]">
                   {value}
                 </p>
-                <p className="mt-2 whitespace-nowrap text-[10px] font-medium leading-none text-black md:text-[11px] lg:text-xs">
+                <p className="mt-2 text-[10px] font-medium leading-tight text-black md:text-[11px] lg:text-xs">
                   {label}
                 </p>
               </div>
@@ -244,8 +271,8 @@ function Hero() {
           </div>
         </div>
 
-        <div className="relative mt-16 min-w-0 lg:mt-16 lg:justify-self-end" id="demo">
-          <div className="relative z-10 ml-auto mr-20 h-[395px] w-full max-w-[370px] rounded-[1.1rem] border-[3px] border-black bg-white px-5 py-5 text-center shadow-[9px_9px_0_#000000] lg:mr-40 2xl:mr-60">
+        <div className="relative mt-8 min-w-0 lg:mt-16 lg:justify-self-end" id="demo">
+          <div className="relative z-10 mx-auto h-[395px] w-full max-w-[370px] rounded-[1.1rem] border-[3px] border-black bg-white px-5 py-5 text-center shadow-[9px_9px_0_#000000] sm:ml-auto sm:mr-10 lg:mr-40 2xl:mr-60">
             <div className="text-center">
               <span className="inline-flex rounded-full border-[2px] border-black bg-white px-5 py-1 text-xs font-black uppercase tracking-wide shadow-[0_3px_0_#000]">
                 Preview
@@ -310,7 +337,7 @@ function Hero() {
             </div>
           </div>
 
-          <div className="mt-16 rounded-[1.35rem] border-[3px] border-black bg-white px-5 py-4 shadow-[12px_12px_0_#000000] lg:w-[520px] lg:-translate-x-10">
+          <div className="mt-10 w-full rounded-[1.35rem] border-[3px] border-black bg-white px-4 py-4 shadow-[10px_10px_0_#000000] sm:px-5 lg:mt-16 lg:w-[520px] lg:-translate-x-10 lg:shadow-[12px_12px_0_#000000]">
             <div className="mb-5 flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-black uppercase tracking-[0.16em] text-black">
@@ -336,7 +363,7 @@ function Platform() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">The Platform</p>
-          <h2 className="whitespace-nowrap font-display text-[1.05rem] font-black leading-tight text-ink sm:text-xl md:text-2xl lg:text-[1.75rem]">
+          <h2 className="font-display text-[1.05rem] font-black leading-tight text-ink sm:text-xl md:text-2xl lg:text-[1.75rem]">
             A complete cognitive performance lab
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-xs font-medium leading-5 text-muted sm:text-sm lg:text-base">
@@ -614,7 +641,7 @@ function SpotlightProductCard({
 function ProductPair() {
   return (
     <section className="px-6 py-4 sm:px-10 lg:px-16 xl:px-24">
-      <div className="mx-auto grid max-w-[1640px] gap-4 lg:grid-cols-2">
+      <div className="mx-auto grid w-full max-w-[1640px] min-w-0 gap-4 lg:grid-cols-2">
         <ProductBanner
           focus="Attention"
           name="Xynaptic Drops"
@@ -649,17 +676,17 @@ function ProductBanner({
 }) {
   const productHref = getSupplementUrl(name);
   const cardClassName =
-    "group flex min-h-[68px] items-center gap-2.5 rounded-[1rem] border-[3px] border-black bg-white px-3 py-1.5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_8px_0_#000000] sm:min-h-[76px] sm:px-3.5";
+    "group flex w-full max-w-full min-w-0 items-center gap-2 rounded-[1rem] border-[3px] border-black bg-white px-3 py-1.5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_8px_0_#000000] sm:min-h-[76px] sm:gap-2.5 sm:px-3.5";
   const body = (
     <>
       <div className="relative h-10 w-10 shrink-0 rounded-[0.75rem] border border-black/10 bg-white sm:h-11 sm:w-11">
         <Image src={image} alt={name} fill sizes="44px" className="object-contain p-1" />
       </div>
       <div className="min-w-0 flex-1">
-        <p className="text-[8px] font-black uppercase tracking-[0.14em] text-cyan">
+        <p className="truncate text-[8px] font-black uppercase tracking-[0.14em] text-cyan">
           For your {focus}
         </p>
-        <h3 className="mt-0.5 text-xs font-black leading-none text-black sm:text-sm">
+        <h3 className="mt-0.5 truncate text-xs font-black leading-none text-black sm:text-sm">
           {name}
         </h3>
         <p className="mt-1 truncate text-[10px] font-medium leading-tight text-black sm:text-[11px]">
@@ -725,7 +752,7 @@ function Professor() {
             <span className="text-xs leading-none">{"\u2723"}</span>
             AI-Powered Guidance
           </p>
-          <h2 className="mt-7 whitespace-nowrap font-display text-lg font-medium leading-tight text-black sm:text-xl lg:text-[1.75rem] xl:text-[1.95rem]">
+          <h2 className="mt-7 font-display text-lg font-medium leading-tight text-black sm:text-xl lg:text-[1.75rem] xl:text-[1.95rem]">
             Meet Professor 5-Brain
             <span className="align-super text-[0.42em]">{"\u2122"}</span>
           </h2>

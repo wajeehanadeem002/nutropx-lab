@@ -485,11 +485,11 @@ export default function LabExerciseExplorer() {
         </div>
       </section>
 
-      <section className="mx-auto mt-8 max-w-[670px]">
+      <section className="mx-auto mt-8 w-full max-w-[670px] overflow-visible">
         <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-black">
           {activeFilter === "All" ? "All" : activeFilter} Exercises - {visibleExercises.length}
         </p>
-        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <div className="mt-5 grid w-full min-w-0 grid-cols-1 justify-items-center gap-4 md:grid-cols-2">
           {visibleExercises.map((exercise) => (
             <ExerciseCard key={exercise.title} {...exercise} />
           ))}
@@ -547,20 +547,20 @@ function ExerciseCard({
     return (
       <Link
         href="/profile?tab=billing"
-        className="flex h-[130px] w-full gap-4 rounded-[1rem] border-[2px] border-[#696e6c] bg-white/72 px-4 py-4 shadow-[0_6px_0_#696e6c] sm:w-[330px]"
+        className="flex min-h-[126px] w-full max-w-[330px] min-w-0 overflow-hidden gap-3 rounded-[1rem] border-[2px] border-[#696e6c] bg-white/72 px-3 py-3 shadow-[0_6px_0_#696e6c] sm:gap-4 sm:px-4 sm:py-4 md:h-[130px] md:w-[330px]"
       >
-        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-[0.9rem] bg-[#a3a7a5] text-white shadow-[5px_5px_0_#696e6c]">
-          <AppIcon name={icon} className="h-7 w-7" />
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[0.9rem] bg-[#a3a7a5] text-white shadow-[5px_5px_0_#696e6c] sm:h-14 sm:w-14">
+          <AppIcon name={icon} className="h-6 w-6 sm:h-7 sm:w-7" />
         </span>
-        <div className="min-w-0">
-          <div className="flex items-start gap-2">
-            <h3 className="truncate text-base font-semibold text-[#666b69]">{title}</h3>
+        <div className="min-w-0 flex-1">
+          <div className="flex min-w-0 items-start gap-1.5 sm:gap-2">
+            <h3 className="min-w-0 truncate text-sm font-semibold text-[#666b69] sm:text-base">{title}</h3>
             {pro ? <ProBadge /> : null}
           </div>
-          <p className="mt-2 line-clamp-2 text-xs font-medium leading-4 text-[#666b69]">
+          <p className="mt-2 line-clamp-2 text-[11px] font-medium leading-[15px] text-[#666b69] sm:text-xs sm:leading-4">
             {description}
           </p>
-          <span className="mt-2 inline-block text-xs font-semibold text-[#5aaebe]">
+          <span className="mt-2 inline-block text-[11px] font-semibold text-[#5aaebe] sm:text-xs">
             Upgrade to unlock
           </span>
         </div>
@@ -570,28 +570,28 @@ function ExerciseCard({
 
   if (featured) {
     return (
-      <article className="flex h-[130px] w-full gap-4 rounded-[1rem] border-[2px] border-black bg-white px-4 py-4 shadow-[0_6px_0_#000] sm:w-[330px]">
-        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-[0.9rem] bg-[#2d95ee] text-white shadow-[5px_5px_0_#000]">
-          <AppIcon name={icon} className="h-7 w-7" />
+      <article className="flex min-h-[126px] w-full max-w-[330px] min-w-0 overflow-hidden gap-3 rounded-[1rem] border-[2px] border-black bg-white px-3 py-3 shadow-[0_6px_0_#000] sm:gap-4 sm:px-4 sm:py-4 md:h-[130px] md:w-[330px]">
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[0.9rem] bg-[#2d95ee] text-white shadow-[5px_5px_0_#000] sm:h-14 sm:w-14">
+          <AppIcon name={icon} className="h-6 w-6 sm:h-7 sm:w-7" />
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-base font-semibold text-black">{title}</h3>
-          <p className="mt-1 line-clamp-2 text-xs font-medium leading-4 text-black">
+          <h3 className="truncate text-sm font-semibold text-black sm:text-base">{title}</h3>
+          <p className="mt-1 line-clamp-2 text-[11px] font-medium leading-[15px] text-black sm:text-xs sm:leading-4">
             {description}
           </p>
-          <div className="mt-2 flex items-center gap-3 text-xs font-medium text-black">
+          <div className="mt-2 flex items-center gap-2 text-[11px] font-medium text-black sm:gap-3 sm:text-xs">
             <span className="font-semibold text-[#2d95ee]">Memory</span>
             <span>2 min</span>
             <span className="text-cyan">2 stars</span>
           </div>
-          <p className="mt-2 text-xs font-semibold text-cyan">+25</p>
+          <p className="mt-2 text-[11px] font-semibold text-cyan sm:text-xs">+25</p>
         </div>
         <Link
           href="/training/abstract-card-match"
-          className="mt-auto grid h-9 w-9 shrink-0 place-items-center rounded-full bg-black/5 text-black"
+          className="mt-auto grid h-8 w-8 shrink-0 place-items-center rounded-full bg-black/5 text-black sm:h-9 sm:w-9"
           aria-label="Start Abstract Card Match"
         >
-          <AppIcon name="play" className="h-5 w-5" />
+          <AppIcon name="play" className="h-4 w-4 sm:h-5 sm:w-5" />
         </Link>
       </article>
     );
@@ -600,20 +600,20 @@ function ExerciseCard({
   return (
     <Link
       href="/profile?tab=billing"
-      className="flex h-[130px] w-full gap-4 rounded-[1rem] border-[2px] border-[#696e6c] bg-white/72 px-4 py-4 shadow-[0_6px_0_#696e6c] sm:w-[330px]"
+      className="flex min-h-[126px] w-full max-w-[330px] min-w-0 overflow-hidden gap-3 rounded-[1rem] border-[2px] border-[#696e6c] bg-white/72 px-3 py-3 shadow-[0_6px_0_#696e6c] sm:gap-4 sm:px-4 sm:py-4 md:h-[130px] md:w-[330px]"
     >
-      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-[0.9rem] bg-[#a3a7a5] text-white shadow-[5px_5px_0_#696e6c]">
-        <AppIcon name={icon} className="h-7 w-7" />
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[0.9rem] bg-[#a3a7a5] text-white shadow-[5px_5px_0_#696e6c] sm:h-14 sm:w-14">
+        <AppIcon name={icon} className="h-6 w-6 sm:h-7 sm:w-7" />
       </span>
-      <div className="min-w-0">
-        <div className="flex items-start gap-2">
-          <h3 className="truncate text-base font-semibold text-[#666b69]">{title}</h3>
+      <div className="min-w-0 flex-1">
+        <div className="flex min-w-0 items-start gap-1.5 sm:gap-2">
+          <h3 className="min-w-0 truncate text-sm font-semibold text-[#666b69] sm:text-base">{title}</h3>
           {pro ? <ProBadge /> : null}
         </div>
-        <p className="mt-2 line-clamp-2 text-xs font-medium leading-4 text-[#666b69]">
+        <p className="mt-2 line-clamp-2 text-[11px] font-medium leading-[15px] text-[#666b69] sm:text-xs sm:leading-4">
           {description}
         </p>
-        <span className="mt-2 inline-block text-xs font-semibold text-[#5aaebe]">
+        <span className="mt-2 inline-block text-[11px] font-semibold text-[#5aaebe] sm:text-xs">
           Upgrade to unlock
         </span>
       </div>
@@ -623,8 +623,8 @@ function ExerciseCard({
 
 function ProBadge() {
   return (
-    <span className="inline-flex h-7 shrink-0 items-center gap-1.5 rounded-full bg-[#666b69] px-3 text-[10px] font-semibold uppercase text-white">
-      <AppIcon name="lock" className="h-3.5 w-3.5" />
+    <span className="inline-flex h-6 shrink-0 items-center gap-1 rounded-full bg-[#666b69] px-2 text-[9px] font-semibold uppercase text-white sm:h-7 sm:gap-1.5 sm:px-3 sm:text-[10px]">
+      <AppIcon name="lock" className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
       Pro
     </span>
   );

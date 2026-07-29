@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/supabase/auth";
+import MobileBottomNav from "@/components/mobile-bottom-nav";
 import UserMenu from "@/components/user-menu";
 import HyperCubeNBackTrainer from "./hyper-cube-client";
 
@@ -39,7 +40,7 @@ export default async function HyperCubeNBackPage() {
 
   return (
     <main
-      className="min-h-screen text-black"
+      className="min-h-screen pb-20 text-black lg:pb-0"
       style={{
         background:
           "linear-gradient(105deg, #f1fbfc 0%, #eef7ff 54%, #fff8f3 100%)",
@@ -56,6 +57,7 @@ export default async function HyperCubeNBackPage() {
         <TrainingFooter />
       </div>
       <ProfessorButton />
+      <MobileBottomNav activeLabel="Lab" />
     </main>
   );
 }
@@ -102,10 +104,10 @@ function TrainingHeader({
 }) {
   return (
     <header className="relative border-b-[3px] border-black bg-white">
-      <div className="mx-auto flex h-[72px] w-full max-w-[959px] items-center justify-between gap-4 px-4">
+      <div className="relative mx-auto flex min-h-[72px] w-full max-w-[959px] flex-wrap items-center justify-between gap-3 px-3 py-3 sm:px-4 lg:flex-nowrap lg:py-0">
         <Link
           href="/dashboard"
-          className="absolute left-10 top-1/2 shrink-0 -translate-y-1/2"
+          className="flex shrink-0 items-center lg:absolute lg:left-10 lg:top-1/2 lg:-translate-y-1/2"
         >
           <Image
             src="/assets/nutropx-lab-logo.png"
@@ -117,14 +119,14 @@ function TrainingHeader({
           />
         </Link>
 
-        <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-[34px] text-xs font-semibold text-[#777] lg:flex">
+        <nav className="hidden items-center justify-center whitespace-nowrap text-xs font-semibold text-[#777] lg:absolute lg:left-1/2 lg:top-1/2 lg:flex lg:w-auto lg:-translate-x-1/2 lg:-translate-y-1/2 lg:gap-[34px]">
           {navItems.map(([icon, label, href]) => {
             const active = label === activeLabel;
             return (
               <Link
                 key={label}
                 href={href}
-                className={`relative inline-flex h-[72px] items-center gap-2 ${
+                className={`relative inline-flex h-9 items-center gap-1.5 lg:h-[72px] lg:gap-2 ${
                   active ? "text-black" : "text-[#777]"
                 }`}
               >
@@ -141,7 +143,7 @@ function TrainingHeader({
           })}
         </nav>
 
-        <div className="absolute right-[25px] top-1/2 flex shrink-0 -translate-y-1/2 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:absolute lg:right-[25px] lg:top-1/2 lg:-translate-y-1/2">
           <Link
             href="/profile?tab=billing"
             className="hidden h-[40px] w-[99px] items-center justify-center gap-1.5 rounded-[0.85rem] border-[3px] border-black bg-orange-500 text-xs font-semibold uppercase text-black shadow-[0_5px_0_#000000] sm:inline-flex"
@@ -160,7 +162,7 @@ function ProfessorButton() {
   return (
     <Link
       href="/profile"
-      className="abstract-training-chrome fixed bottom-8 right-8 z-20 grid h-[86px] w-[86px] place-items-center rounded-full bg-orange-500 shadow-[0_16px_35px_rgba(255,107,44,0.35)]"
+      className="abstract-training-chrome fixed bottom-20 right-4 z-20 grid h-[62px] w-[62px] place-items-center rounded-full bg-orange-500 shadow-[0_16px_35px_rgba(255,107,44,0.35)] sm:bottom-8 sm:right-8 sm:h-[86px] sm:w-[86px]"
       aria-label="Professor 5-Brain"
     >
       <Image
@@ -168,7 +170,7 @@ function ProfessorButton() {
         alt=""
         width={66}
         height={66}
-        className="h-[66px] w-[66px] object-contain"
+        className="h-[48px] w-[48px] object-contain sm:h-[66px] sm:w-[66px]"
       />
     </Link>
   );
