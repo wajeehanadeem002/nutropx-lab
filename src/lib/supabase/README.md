@@ -14,8 +14,14 @@ Implemented:
 
 Required environment variables:
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`: the project URL, for example
+  `https://your-project.supabase.co`. If `/rest/v1` is included by mistake,
+  the app removes it before calling Supabase Auth.
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: the public anon key. A modern Supabase
+  publishable key can also be provided as `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+
+Never expose the Supabase secret key in browser-facing or public environment
+variables.
 
 Still to build:
 

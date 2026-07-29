@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOutAction } from "@/app/auth/actions";
-import { getCurrentUser } from "@/lib/supabase/auth";
+import { getAuthErrorMessage, getCurrentUser } from "@/lib/supabase/auth";
 import MobileBottomNav from "@/components/mobile-bottom-nav";
 import UserMenu from "@/components/user-menu";
 import { LabProBillingCard } from "./billing-card";
@@ -81,7 +81,8 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   const requestedTab = Array.isArray(params?.tab) ? params.tab[0] : params?.tab;
   const requestedPlan = Array.isArray(params?.plan) ? params.plan[0] : params?.plan;
   const message = Array.isArray(params?.message) ? params.message[0] : params?.message;
-  const error = Array.isArray(params?.error) ? params.error[0] : params?.error;
+  const rawError = Array.isArray(params?.error) ? params.error[0] : params?.error;
+  const error = rawError ? getAuthErrorMessage(new Error(rawError)) : undefined;
   const activeTab = getProfileTab(requestedTab);
   const activePlan = getBillingPlan(requestedPlan);
   const leaderboardPublic = user.user_metadata?.leaderboard_public === true;

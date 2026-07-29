@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { request as httpsRequest } from "node:https";
 import type { IncomingHttpHeaders } from "node:http";
+import { getSupabaseConfig } from "./config";
 
 export type SupabaseAuthUser = {
   id: string;
@@ -26,19 +27,6 @@ const ACCESS_TOKEN_COOKIE = "nutropx_access_token";
 const REFRESH_TOKEN_COOKIE = "nutropx_refresh_token";
 const DEV_USER_COOKIE = "nutropx_dev_user";
 const DEV_SESSION_MAX_AGE = 60 * 60 * 24 * 365;
-
-function getSupabaseConfig() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!url || !anonKey) {
-    throw new Error(
-      "Supabase env vars missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
-    );
-  }
-
-  return { url, anonKey };
-}
 
 async function parseSupabaseError(response: Response) {
   try {
@@ -89,7 +77,7 @@ async function supabaseAuthRequest<T>(
         fetchError,
       });
       throw new Error(
-        "Supabase connection failed. Internet/Supabase connection check karo, phir dobara try karo.",
+        "We could not connect to Supabase. Please check the deployment environment variables and try again.",
       );
     }
   }
@@ -561,17 +549,54 @@ export async function getCurrentUser() {
 }
 
 export function getAuthErrorMessage(error: unknown) {
-  if (error instanceof Error) {
-    if (error.message.toLowerCase().includes("email rate limit")) {
-      return "Supabase email limit exceed ho gayi hai. Thori der wait karo, ya Supabase Auth settings mein email confirmation OFF karo for testing.";
-    }
+  const rawMessage =
+    error instanceof Error ? error.message : typeof error === "string" ? error : "";
+  const message = rawMessage.trim();
+  const normalized = message.toLowerCase();
 
-    if (error.message.toLowerCase().includes("invalid login credentials")) {
-      return "Account nahi mila, email confirm nahi hui, ya password ghalat hai. Pehle Create account karo, email confirm karo, phir sign in karo.";
-    }
-
-    return error.message;
+  if (
+    normalized.includes("supabase env vars missing") ||
+    normalized.includes("supabase is not configured") ||
+    normalized.includes("next_public_supabase")
+  ) {
+    return "Supabase is not configured for this deployment. Please add the Supabase URL and public anon key in Vercel, then redeploy.";
   }
 
-  return "Something went wrong. Please try again.";
+  if (
+    normalized.includes("supabase connection failed") ||
+    normalized.includes("we could not connect to supabase") ||
+    normalized.includes("fetch failed") ||
+    normalized.includes("timed out")
+  ) {
+    return "We could not connect to Supabase. Please check the deployment environment variables and try again.";
+  }
+
+  if (normalized.includes("email rate limit")) {
+    return "Too many signup emails were requested. Please wait a few minutes before trying again.";
+  }
+
+  if (
+    normalized.includes("invalid login credentials") ||
+    normalized.includes("invalid email or password")
+  ) {
+    return "We could not sign you in. Please check your email and password, or create an account if you are new.";
+  }
+
+  if (normalized.includes("email not confirmed")) {
+    return "Please confirm your email address before signing in.";
+  }
+
+  if (normalized.includes("already registered") || normalized.includes("already exists")) {
+    return "An account with this email already exists. Please sign in instead.";
+  }
+
+  if (normalized.includes("signup disabled")) {
+    return "Email signups are currently disabled. Please enable email authentication in Supabase or try again later.";
+  }
+
+  if (normalized.includes("jwt") || normalized.includes("session")) {
+    return "Your session has expired. Please sign in again.";
+  }
+
+  return message || "Something went wrong. Please try again.";
 }

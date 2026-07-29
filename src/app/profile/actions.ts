@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import {
   deleteCurrentUserAccount,
+  getAuthErrorMessage,
   updateCurrentUserAlertSettings,
   updateCurrentUserDisplayName,
   updateCurrentUserPrivacySettings,
@@ -16,6 +17,10 @@ function getFormValue(formData: FormData, key: string) {
 
 function profileRedirect(key: "error" | "message", value: string): never {
   redirect(`/profile?${key}=${encodeURIComponent(value)}`);
+}
+
+function getProfileActionErrorMessage(error: unknown, fallback: string) {
+  return error instanceof Error ? getAuthErrorMessage(error) : fallback;
 }
 
 export async function updateProfileAction(formData: FormData) {
@@ -34,7 +39,10 @@ export async function updateProfileAction(formData: FormData) {
   } catch (error) {
     profileRedirect(
       "error",
-      error instanceof Error ? error.message : "Profile save nahi ho saka. Dobara try karo.",
+      getProfileActionErrorMessage(
+        error,
+        "We could not save your profile. Please try again.",
+      ),
     );
   }
 
@@ -56,9 +64,10 @@ export async function updatePrivacyAction(formData: FormData) {
   } catch (error) {
     profileRedirect(
       "error",
-      error instanceof Error
-        ? error.message
-        : "Privacy settings save nahi ho sakin. Dobara try karo.",
+      getProfileActionErrorMessage(
+        error,
+        "We could not save your privacy settings. Please try again.",
+      ),
     );
   }
 
@@ -76,10 +85,10 @@ function normalizeDigestFrequency(value: string) {
 function alertActionResult(error: unknown) {
   return {
     ok: false,
-    message:
-      error instanceof Error
-        ? error.message
-        : "Alert settings save nahi ho sakin. Dobara try karo.",
+    message: getProfileActionErrorMessage(
+      error,
+      "We could not save your alert settings. Please try again.",
+    ),
   };
 }
 
