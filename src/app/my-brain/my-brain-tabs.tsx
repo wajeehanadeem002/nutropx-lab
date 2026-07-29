@@ -53,8 +53,8 @@ export function MyBrainTabs() {
 
 function BrainRecordsCard() {
   return (
-    <section className="mx-auto mt-8 grid h-[400px] max-w-[672px] place-items-center rounded-[1.2rem] bg-[#131516] px-8 py-8 text-center text-white">
-      <div className="mx-auto max-w-[560px]">
+    <section className="mx-auto mt-8 grid h-[400px] w-full max-w-[672px] overflow-hidden rounded-[1.2rem] bg-[#131516] px-5 py-7 text-center text-white sm:px-8 sm:py-8">
+      <div className="mx-auto grid h-full w-full max-w-[560px] content-center">
         <div className="mx-auto flex w-fit items-center gap-3 text-cyan">
           <LocalIcon name="spark" className="h-6 w-6 text-cyan" />
           <LocalIcon name="spark" className="h-6 w-6 text-cyan" />
@@ -68,12 +68,12 @@ function BrainRecordsCard() {
         </p>
         <Link
           href="/brain-test"
-          className="mx-auto mt-5 flex h-[54px] w-[300px] items-center justify-center rounded-[0.9rem] bg-orange-500 text-xs font-semibold text-black shadow-[0_14px_28px_rgba(255,107,44,0.25)]"
+          className="mx-auto mt-5 flex h-[50px] w-full max-w-[260px] items-center justify-center rounded-[0.9rem] bg-orange-500 px-4 text-[11px] font-semibold text-black shadow-[0_14px_28px_rgba(255,107,44,0.25)] sm:h-[54px] sm:max-w-[300px] sm:text-xs"
         >
           Take the Brain Test <span className="ml-2 text-lg">{"\u2192"}</span>
         </Link>
 
-        <div className="mx-auto mt-8 grid max-w-[260px] grid-cols-3 gap-5">
+        <div className="mx-auto mt-8 grid w-full max-w-[260px] grid-cols-3 gap-3 sm:gap-5">
           {stats.map(([value, label, hint]) => (
             <div key={label}>
               <p className="text-xl font-semibold leading-none text-white">{value}</p>

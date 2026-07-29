@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOutAction } from "@/app/auth/actions";
 import { getCurrentUser } from "@/lib/supabase/auth";
+import MobileBottomNav from "@/components/mobile-bottom-nav";
 import UserMenu from "@/components/user-menu";
 import { LabProBillingCard } from "./billing-card";
 import { deleteAccountAction, updateProfileAction } from "./actions";
@@ -96,7 +97,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
 
   return (
     <main
-      className="min-h-screen text-black"
+      className="min-h-screen pb-20 pt-[75px] text-black lg:pb-0"
       style={{
         background: "linear-gradient(105deg, #ecfbfa 0%, #f8fbfa 50%, #fff7f2 100%)",
       }}
@@ -141,6 +142,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
       </div>
 
       <ProfessorButton />
+      <MobileBottomNav activeLabel="Profile" />
       <DashboardFooter />
     </main>
   );
@@ -437,7 +439,7 @@ const badgeCards: Array<[IconName, string, string]> = [
 
 function BadgesPanel() {
   return (
-    <section className="mx-auto mt-8 h-[380px] w-full max-w-[660px] rounded-[1.2rem] border-[2px] border-black bg-white px-5 py-5 shadow-[0_7px_0_#000]">
+    <section className="mx-auto mt-8 h-auto w-full max-w-[660px] rounded-[1.2rem] border-[2px] border-black bg-white px-5 py-5 shadow-[0_7px_0_#000] sm:h-[380px]">
       <div className="flex items-center justify-between">
         <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-black">
           Badges
@@ -616,9 +618,12 @@ function DashboardHeader({
   email: string;
 }) {
   return (
-    <header className="relative border-b-[3px] border-orange-500 bg-white">
-      <div className="mx-auto flex h-[72px] w-full max-w-[959px] items-center justify-between gap-4 px-4">
-        <Link href="/dashboard" className="absolute left-10 top-1/2 shrink-0 -translate-y-1/2">
+    <header
+      className="dashboard-shell-header fixed inset-x-0 top-0 border-b-[3px] border-orange-500 bg-white/90 shadow-[0_8px_24px_rgba(0,0,0,0.10)] backdrop-blur-xl"
+      style={{ zIndex: 9999 }}
+    >
+      <div className="relative mx-auto flex min-h-[72px] w-full max-w-[959px] flex-wrap items-center justify-between gap-3 px-3 py-3 sm:px-4 lg:flex-nowrap lg:py-0">
+        <Link href="/dashboard" className="flex shrink-0 items-center lg:absolute lg:left-10 lg:top-1/2 lg:-translate-y-1/2">
           <Image
             src="/assets/nutropx-lab-logo.png"
             alt="Nutropx LAB"
@@ -629,14 +634,14 @@ function DashboardHeader({
           />
         </Link>
 
-        <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-[34px] text-xs font-semibold text-[#777] lg:flex">
+        <nav className="hidden items-center justify-center whitespace-nowrap text-xs font-semibold text-[#777] lg:absolute lg:left-1/2 lg:top-1/2 lg:flex lg:w-auto lg:-translate-x-1/2 lg:-translate-y-1/2 lg:gap-[34px]">
           {navItems.map(([icon, label, href]) => {
             const active = label === activeLabel;
             return (
               <Link
                 key={label}
                 href={href}
-                className={`relative inline-flex h-[72px] items-center gap-2 ${
+                className={`relative inline-flex h-9 items-center gap-1.5 lg:h-[72px] lg:gap-2 ${
                   active ? "text-black" : "text-[#777]"
                 }`}
               >
@@ -650,7 +655,7 @@ function DashboardHeader({
           })}
         </nav>
 
-        <div className="absolute right-[25px] top-1/2 flex shrink-0 -translate-y-1/2 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:absolute lg:right-[25px] lg:top-1/2 lg:-translate-y-1/2">
           <Link
             href="/profile?tab=billing"
             className="hidden h-[40px] w-[99px] items-center justify-center gap-1.5 rounded-[0.85rem] border-[3px] border-black bg-orange-500 text-xs font-semibold uppercase text-black shadow-[0_5px_0_#000000] sm:inline-flex"
@@ -669,7 +674,7 @@ function ProfessorButton() {
   return (
     <Link
       href="/profile"
-      className="fixed bottom-8 right-8 z-20 grid h-[86px] w-[86px] place-items-center rounded-full bg-orange-500 shadow-[0_16px_35px_rgba(255,107,44,0.35)]"
+      className="fixed bottom-20 right-4 z-20 grid h-[62px] w-[62px] place-items-center rounded-full bg-orange-500 shadow-[0_16px_35px_rgba(255,107,44,0.35)] sm:bottom-8 sm:right-8 sm:h-[86px] sm:w-[86px]"
       aria-label="Professor 5-Brain"
     >
       <Image
@@ -677,7 +682,7 @@ function ProfessorButton() {
         alt=""
         width={66}
         height={66}
-        className="h-[66px] w-[66px] object-contain"
+        className="h-[48px] w-[48px] object-contain sm:h-[66px] sm:w-[66px]"
       />
     </Link>
   );
