@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { getOptionalSupabaseConfig } from "./lib/supabase/config";
 
 const ACCESS_TOKEN_COOKIE = "nutropx_access_token";
 const REFRESH_TOKEN_COOKIE = "nutropx_refresh_token";
@@ -9,14 +10,6 @@ type SupabaseSession = {
   refresh_token?: string;
   expires_in?: number;
 };
-
-function getSupabaseConfig() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!url || !anonKey) return null;
-  return { url, anonKey };
-}
 
 function getJwtExpiry(token: string) {
   try {
@@ -62,7 +55,7 @@ function isLocalDevSessionFresh(cookieValue?: string) {
 }
 
 async function refreshSession(refreshToken: string) {
-  const config = getSupabaseConfig();
+  const config = getOptionalSupabaseConfig();
   if (!config) return null;
 
   const response = await fetch(

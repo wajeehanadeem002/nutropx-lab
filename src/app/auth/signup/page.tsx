@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signUpAction } from "../actions";
-import { getCurrentUser } from "@/lib/supabase/auth";
+import { getAuthErrorMessage, getCurrentUser } from "@/lib/supabase/auth";
 
 type SignupPageProps = {
   searchParams: Promise<{
@@ -15,6 +15,9 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
   if (user) redirect("/dashboard");
 
   const params = await searchParams;
+  const errorMessage = params.error
+    ? getAuthErrorMessage(new Error(params.error))
+    : "";
 
   return (
     <main
@@ -39,9 +42,9 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
             Save your brain-test scores, XP, streaks, and training history.
           </p>
 
-          {params.error ? (
+          {errorMessage ? (
             <p className="mt-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-2 text-xs font-medium text-red-700">
-              {params.error}
+              {errorMessage}
             </p>
           ) : null}
           {params.message ? (

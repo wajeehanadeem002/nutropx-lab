@@ -65,7 +65,7 @@ export async function signUpAction(formData: FormData) {
     authRedirect(
       "/auth/login",
       "message",
-      "Account created. Check your email to confirm, then sign in.",
+      "Account created. Please check your email to confirm your address before signing in.",
     );
   }
 
