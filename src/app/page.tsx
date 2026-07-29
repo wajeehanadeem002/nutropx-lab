@@ -99,7 +99,7 @@ export default async function Home() {
   const user = await getCurrentUser();
 
   return (
-    <main>
+    <main className="pt-[92px] sm:pt-[96px] 2xl:pt-[106px]">
       <SiteHeader isSignedIn={Boolean(user)} />
       <Hero />
       <ProductPair />
@@ -119,7 +119,7 @@ export default async function Home() {
 
 function SiteHeader({ isSignedIn }: { isSignedIn: boolean }) {
   return (
-    <header className="sticky top-0 z-30 bg-transparent px-2 pt-[10px] pb-0 sm:px-6 lg:px-16 xl:px-24 2xl:px-32">
+    <header className="fixed inset-x-0 top-0 z-50 bg-transparent px-2 pt-[10px] pb-0 sm:px-6 lg:px-16 xl:px-24 2xl:px-32">
       <div
         className={
           isSignedIn
